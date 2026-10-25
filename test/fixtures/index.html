@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>wc-kit fixture</title>
+<link rel="stylesheet" href="/src/wc-kit.css">
+<style>body { font: 16px system-ui, sans-serif; margin: 24px; } .tall { height: 2000px; }</style>
+</head>
+<body>
+<button id="before">sebelum</button>
+
+<wc-tabs id="tabs" label="Contoh">
+  <wc-tab>Satu</wc-tab>
+  <wc-tab>Dua</wc-tab>
+  <wc-tab disabled>Tiga</wc-tab>
+  <wc-tab>Empat</wc-tab>
+  <wc-panel>Panel satu</wc-panel>
+  <wc-panel><a href="#x">tautan</a> panel dua</wc-panel>
+  <wc-panel>Panel tiga</wc-panel>
+  <wc-panel>Panel empat</wc-panel>
+</wc-tabs>
+
+<wc-tabs id="manual" activation="manual" selected="1">
+  <wc-tab>A</wc-tab><wc-tab>B</wc-tab><wc-tab>C</wc-tab>
+  <wc-panel>pa</wc-panel><wc-panel>pb</wc-panel><wc-panel>pc</wc-panel>
+</wc-tabs>
+
+<wc-accordion id="acc" single>
+  <details><summary>Pertama</summary><div>Isi pertama</div></details>
+  <details open><summary>Kedua</summary><div>Isi kedua</div></details>
+  <details><summary>Ketiga</summary><div>Isi ketiga</div></details>
+</wc-accordion>
+
+<wc-accordion id="multi">
+  <details><summary>M1</summary><div>m1</div></details>
+  <details><summary>M2</summary><div>m2</div></details>
+</wc-accordion>
+
+<button id="opener" data-wc-open="dlg">Buka dialog</button>
+<wc-dialog id="dlg">
+  <h2>Hapus berkas?</h2>
+  <p data-wc-desc>Tindakan ini tidak bisa dibatalkan.</p>
+  <button id="cancel" data-wc-close="batal">Batal</button>
+  <button id="ok">Hapus</button>
+</wc-dialog>
+
+<button id="opener2" data-wc-open="keep">Buka persisten</button>
+<wc-dialog id="keep" persistent label="Simpan perubahan">
+  <input id="field" autofocus>
+  <button data-wc-close>Tutup</button>
+</wc-dialog>
+
+<div class="tall"></div>
+<script type="module" src="/src/wc-kit.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+/*!
+ * wc-kit 1.0.0, tema dasar. Ubah variabel di bawah untuk menyesuaikan.
+ * MIT License, Reza Arya Maulana.
+ */
+:where(wc-tabs, wc-accordion, wc-dialog) {
+  --wc-accent: #ff4f1a;
+  --wc-ink: #141414;
+  --wc-ink-2: #5c5c58;
+  --wc-surface: #ffffff;
+  --wc-surface-2: #f4f4f1;
+  --wc-border: #e3e2dc;
+  --wc-radius: 12px;
+  --wc-duration: 260ms;
+  --wc-focus: 0 0 0 3px color-mix(in srgb, var(--wc-accent) 35%, transparent);
+  --wc-ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+/* ---------- sebelum JavaScript jalan: semua isi tetap terbaca ---------- */
+wc-tabs:not(:defined) wc-tab { display: none; }
+wc-tabs:not(:defined) wc-panel { display: block; margin-bottom: 1em; }
+wc-dialog:not(:defined) { display: none; }
+
+/* ---------- tabs ---------- */
+wc-tabs { display: block; }
+wc-tabs .wc-tablist {
+  position: relative; display: flex; gap: 2px; padding: 4px; border-radius: calc(var(--wc-radius) + 4px);
+  background: var(--wc-surface-2); overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+wc-tabs .wc-tablist::-webkit-scrollbar { display: none; }
+wc-tab {
+  position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 8px; flex: none;
+  min-height: 40px; padding: 0 16px; border-radius: var(--wc-radius); cursor: pointer; user-select: none;
+  -webkit-tap-highlight-color: transparent; color: var(--wc-ink-2); font-weight: 500; white-space: nowrap;
+  transition: color var(--wc-duration) var(--wc-ease);
+}
+wc-tab:hover { color: var(--wc-ink); }
+wc-tab[aria-selected="true"] { color: var(--wc-ink); }
+wc-tab[aria-disabled="true"] { opacity: .4; cursor: not-allowed; }
+wc-tab:focus-visible { outline: none; box-shadow: var(--wc-focus); }
+wc-tabs .wc-indicator {
+  position: absolute; z-index: 0; top: 4px; bottom: 4px; left: 0; width: var(--wc-ind-size, 0);
+  transform: translateX(var(--wc-ind-pos, 0)); border-radius: var(--wc-radius); background: var(--wc-surface);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .06), 0 4px 12px -6px rgba(0, 0, 0, .12);
+  transition: transform var(--wc-duration) var(--wc-ease), width var(--wc-duration) var(--wc-ease);
+}
+wc-tabs:not([data-ready]) .wc-indicator { transition: none; }
+wc-tabs[orientation="vertical"] { display: grid; grid-template-columns: auto 1fr; gap: 20px; }
+wc-tabs[orientation="vertical"] .wc-tablist { flex-direction: column; align-self: start; }
+wc-tabs[orientation="vertical"] .wc-indicator {
+  top: 0; bottom: auto; left: 4px; right: 4px; width: auto; height: var(--wc-ind-size, 0);
+  transform: translateY(var(--wc-ind-pos, 0)); transition-property: transform, height;
+}
+wc-panel { display: block; padding: 20px 4px 4px; }
+wc-panel[hidden] { display: none; }
+wc-panel:focus-visible { outline: none; box-shadow: var(--wc-focus); border-radius: var(--wc-radius); }
+wc-tabs[data-ready] wc-panel:not([hidden]) { animation: wc-fade var(--wc-duration) var(--wc-ease); }
+
+/* ---------- accordion ---------- */
+wc-accordion { display: block; border-top: 1px solid var(--wc-border); }
+wc-accordion > details { box-sizing: border-box; border-bottom: 1px solid var(--wc-border); }
+wc-accordion > details > summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 2px;
+  cursor: pointer; list-style: none; font-weight: 500; color: var(--wc-ink); border-radius: 6px;
+  -webkit-tap-highlight-color: transparent;
+}
+wc-accordion > details > summary::-webkit-details-marker { display: none; }
+wc-accordion > details > summary::after {
+  content: ""; flex: none; width: 10px; height: 10px; margin-right: 6px;
+  border-right: 1.6px solid currentColor; border-bottom: 1.6px solid currentColor;
+  transform: translateY(-3px) rotate(45deg); transition: transform var(--wc-duration) var(--wc-ease);
+}
+wc-accordion > details[data-open] > summary::after,
+wc-accordion:not([data-ready]) > details[open] > summary::after { transform: translateY(2px) rotate(225deg); }
+wc-accordion > details > summary:focus-visible { outline: none; box-shadow: var(--wc-focus); }
+wc-accordion > details > :not(summary) { padding: 0 2px 20px; color: var(--wc-ink-2); }
+wc-accordion > details[data-anim] > :not(summary) { transition: opacity var(--wc-duration) var(--wc-ease); }
+wc-accordion > details[data-anim="close"] > :not(summary) { opacity: 0; }
+
+/* ---------- dialog ---------- */
+wc-dialog { display: contents; }
+wc-dialog .wc-dialog {
+  box-sizing: border-box; width: min(480px, calc(100vw - 32px)); max-height: min(85vh, 720px); max-height: min(85dvh, 720px);
+  padding: 28px; border: 0; border-radius: calc(var(--wc-radius) + 6px); overflow: auto; overscroll-behavior: contain;
+  background: var(--wc-surface); color: var(--wc-ink);
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .35), 0 0 0 1px rgba(0, 0, 0, .04);
+}
+wc-dialog .wc-dialog:focus-visible { outline: none; }
+wc-dialog .wc-dialog[open] { animation: wc-pop var(--wc-duration) var(--wc-ease); }
+wc-dialog .wc-dialog::backdrop { background: rgba(10, 10, 10, .44); animation: wc-fade var(--wc-duration) var(--wc-ease); }
+wc-dialog .wc-dialog[data-closing] { animation: wc-pop-out var(--wc-duration) var(--wc-ease) forwards; }
+wc-dialog .wc-dialog[data-closing]::backdrop { animation: wc-fade-out var(--wc-duration) var(--wc-ease) forwards; }
+@media (max-width: 560px) {
+  /* Di ponsel dialog muncul dari bawah seperti lembar. */
+  wc-dialog[sheet] .wc-dialog, wc-dialog:not([center]) .wc-dialog {
+    width: 100%; max-width: none; margin: auto 0 0; border-radius: calc(var(--wc-radius) + 6px) calc(var(--wc-radius) + 6px) 0 0;
+    padding-bottom: max(28px, env(safe-area-inset-bottom));
+  }
+  wc-dialog:not([center]) .wc-dialog[open] { animation-name: wc-sheet; }
+  wc-dialog:not([center]) .wc-dialog[data-closing] { animation-name: wc-sheet-out; }
+}
+
+@keyframes wc-fade { from { opacity: 0; } }
+@keyframes wc-fade-out { to { opacity: 0; } }
+@keyframes wc-pop { from { opacity: 0; transform: translateY(8px) scale(.97); } }
+@keyframes wc-pop-out { to { opacity: 0; transform: translateY(6px) scale(.98); } }
+@keyframes wc-sheet { from { transform: translateY(100%); } }
+@keyframes wc-sheet-out { to { transform: translateY(100%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  :where(wc-tabs, wc-accordion, wc-dialog) { --wc-duration: 0ms; }
+  wc-dialog .wc-dialog, wc-dialog .wc-dialog::backdrop, wc-panel { animation: none !important; }
+}

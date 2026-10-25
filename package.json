@@ -1,0 +1,27 @@
+{
+  "name": "wc-kit",
+  "version": "1.0.0",
+  "description": "Tabs, accordion, dan dialog sebagai komponen web yang bisa diakses dengan keyboard dan pembaca layar. Tanpa framework, tanpa dependensi.",
+  "type": "commonjs",
+  "main": "src/wc-kit.js",
+  "module": "src/wc-kit.js",
+  "exports": {
+    ".": "./src/wc-kit.js",
+    "./wc-kit.css": "./src/wc-kit.css"
+  },
+  "files": ["src"],
+  "scripts": {
+    "start": "npx --yes serve docs",
+    "sync": "node scripts/sync-docs.js",
+    "test": "node --test",
+    "test:all": "BROWSER=chromium npm test && BROWSER=firefox npm test && BROWSER=webkit npm test"
+  },
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  },
+  "keywords": ["web-components", "custom-elements", "accessibility", "a11y", "aria", "tabs", "accordion", "dialog", "vanilla-js"],
+  "author": "Reza Arya Maulana",
+  "license": "MIT",
+  "homepage": "https://rezaaryam.github.io/wc-kit/",
+  "repository": { "type": "git", "url": "https://github.com/rezaaryam/wc-kit.git" }
+}
